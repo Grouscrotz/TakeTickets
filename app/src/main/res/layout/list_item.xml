@@ -7,24 +7,22 @@
 
     <ImageView
         android:id="@+id/imageView_RecyclerNews"
-        android:layout_width="388dp"
-        android:layout_height="317dp"
-        android:layout_marginTop="244dp"
+        android:layout_width="370dp"
+        android:layout_height="351dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_RecyclerView_News"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="167dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="168dp"
+        android:layout_marginTop="3dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_RecyclerNews"
+        app:layout_constraintStart_toStartOf="@+id/imageView_RecyclerNews"
         app:layout_constraintTop_toBottomOf="@+id/imageView_RecyclerNews" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
