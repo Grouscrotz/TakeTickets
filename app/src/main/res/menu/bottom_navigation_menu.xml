@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_news"
+        android:icon="@drawable/icon_news"
+        android:title="@string/bottom_news" />
+    <item
+        android:id="@+id/bottom_poster"
+        android:icon="@drawable/icon_poster"
+        android:title="@string/bottom_poster" />
+    <item
+        android:id="@+id/bottom_order"
+        android:icon="@drawable/icon_tickets"
+        android:title="@string/bottom_tickets" />
+
+</menu>
