@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.taketickets.adapters.SimpleAdapter;
@@ -40,10 +41,6 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        // Найти элементы
-        TextView textView = view.findViewById(R.id.textView_RecyclerView_News);
-        Button button = view.findViewById(R.id.imageView_RecyclerNews);
-
         // Инициализируем RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_News);
         // Устанавливаем для RecyclerView разметку
@@ -57,6 +54,8 @@ public class NewsFragment extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(items,items2);
         // Устанавливаем адаптер
         recyclerView.setAdapter(adapter);
+
+
 
     }
 

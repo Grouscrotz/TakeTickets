@@ -59,7 +59,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.ViewHolder
             super(view);
 
             textView = view.findViewById(R.id.textView_RecyclerView_News);
-            imageView = view.findViewById(R.id.imageView_RecyclerNews);
+            imageView = view.findViewById(R.id.imageView_RecyclerView_News);
         }
     }
 
