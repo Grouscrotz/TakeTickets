@@ -9,7 +9,7 @@
         android:icon="@drawable/icon_poster"
         android:title="@string/bottom_poster" />
     <item
-        android:id="@+id/bottom_order"
+        android:id="@+id/bottom_tickets"
         android:icon="@drawable/icon_tickets"
         android:title="@string/bottom_tickets" />
 
