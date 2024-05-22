@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    public FragmentTransaction fragmentTransaction;
 
     public BottomNavigationView bottomNavigationView;
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Общий метод для вызова фрагмента
     public void showFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_Fragment,fragment);
         fragmentTransaction.commit();
     }
@@ -80,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
     // Вызов фрагмента "Афиша"
     public  void showPosterFragment() {
         PosterFragment fragment = new PosterFragment();
-        showFragment(fragment);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_Fragment,fragment);
+        fragmentTransaction.commit();
     }
 
     // Вызов фрагмента "Мои билеты"
