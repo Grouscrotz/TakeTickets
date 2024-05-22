@@ -63,6 +63,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             genreTextView = itemView.findViewById(R.id.textView_genre);
             ageLimitTextView = itemView.findViewById(R.id.textView_ageLimit);
 
+
         }
     }
 
