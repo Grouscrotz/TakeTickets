@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.taketickets.adapters.PosterAdapter;
 import com.example.taketickets.adapters.SimpleAdapter;
 
 import java.util.Arrays;
@@ -46,12 +47,11 @@ public class NewsFragment extends Fragment {
         // Устанавливаем для RecyclerView разметку
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
 
-        // Создаём 2 списка с String и ImageView(id)
-        List<String> items = Arrays.asList("Майор Гром: Игра", "Министерство джентельменских дел");
-        List<Integer> items2 = Arrays.asList(R.drawable.mayor_grom,R.drawable.ministerstvo);
+        // Создаём список с ImageView(id)
+        List<Integer> posters = Arrays.asList(R.drawable.mayor_grom,R.drawable.ministerstvo,R.drawable.artur_you_are_king,R.drawable.sto_let_tomu_vpered);
 
         // Инициализация нашего адаптера(картинка и текст)
-        SimpleAdapter adapter = new SimpleAdapter(items,items2);
+        PosterAdapter adapter = new PosterAdapter(posters);
         // Устанавливаем адаптер
         recyclerView.setAdapter(adapter);
 

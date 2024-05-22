@@ -18,14 +18,4 @@
         android:layout_gravity="center"
         tools:srcCompat="@tools:sample/avatars" />
 
-
-    <TextView
-        android:id="@+id/textView_RecyclerView_News"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="TextView"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="730dp" />
-
 </androidx.cardview.widget.CardView>
