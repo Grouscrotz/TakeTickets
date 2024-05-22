@@ -1,5 +1,6 @@
 package com.example.taketickets;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,18 +16,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.taketickets.adapters.MovieAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     public FragmentTransaction fragmentTransaction;
 
     public BottomNavigationView bottomNavigationView;
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         bottomNavigationView = findViewById(R.id.bottomBar); // BottomBar
         onClick_bottomNavigationView(); // обработчик клика на кнопки в BottomBar
 

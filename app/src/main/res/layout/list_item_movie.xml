@@ -67,6 +67,7 @@
             tools:ignore="HardcodedText" />
 
         <Button
+            android:id="@+id/movie_card_button"
             android:layout_width="179dp"
             android:layout_height="71dp"
             android:layout_marginStart="11dp"

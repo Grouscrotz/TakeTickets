@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class NewsFragment extends Fragment {
-    public Context context;
+    public static Context context;
 
     public NewsFragment() { }
 
