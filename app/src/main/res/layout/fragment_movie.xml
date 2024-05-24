@@ -9,46 +9,77 @@
 
     <ImageView
         android:id="@+id/imageViewMovie"
-        android:layout_width="134dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="7dp"
+        android:layout_width="154dp"
+        android:layout_height="219dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
     <TextView
+        android:id="@+id/textViewMovieAgeLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovie"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textViewMovieGenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="68dp"
         android:text="TextView"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewMovieAgeLimit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="47dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMovieGenre"
-        app:layout_constraintStart_toEndOf="@+id/imageViewMovie"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieAgeLimit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewMovieName"
-        android:layout_width="155dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="187dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="48dp"
         android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovie"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/movie_card_button"
+        android:layout_width="175dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/white"
+        android:backgroundTintMode="src_atop"
+        android:elegantTextHeight="false"
+        android:freezesText="false"
+        android:text="О фильме"
+        android:textColor="@color/black"
+        android:textColorLink="#000000"
+        android:textIsSelectable="false"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/icon_button"
+        app:iconPadding="5dp"
+        app:iconSize="28dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageViewMovie"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211"
+        app:strokeColor="@color/coral"
+        app:strokeWidth="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

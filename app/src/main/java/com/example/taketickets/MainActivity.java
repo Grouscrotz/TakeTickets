@@ -1,10 +1,14 @@
 package com.example.taketickets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -18,7 +22,11 @@ import com.example.taketickets.fragments.MovieFragment;
 import com.example.taketickets.fragments.MyTicketsFragment;
 import com.example.taketickets.fragments.NewsFragment;
 import com.example.taketickets.fragments.PosterFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,10 +37,18 @@ public class MainActivity extends AppCompatActivity {
     public BottomNavigationView bottomNavigationView;
     public Context context;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+
+
+
         bottomNavigationView = findViewById(R.id.bottomBar); // BottomBar
         onClick_bottomNavigationView(); // обработчик клика на кнопки в BottomBar
 
@@ -111,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
     );
 
     Movie movie = new Movie("Майор Гром: Игра", "Боевик",14,R.drawable.mayor_grom,sessionsList);
+
 
 
 

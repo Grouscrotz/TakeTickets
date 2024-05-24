@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "849323079272",
+    "project_id": "taketickets-74f96",
+    "storage_bucket": "taketickets-74f96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849323079272:android:d0af96977dc0c9aab76ddd",
+        "android_client_info": {
+          "package_name": "com.example.taketickets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuFw9hkbgVP2QqFvEyBwjEm6FX1d-FOUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
