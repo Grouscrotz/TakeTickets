@@ -7,12 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     public Button login_button; // Кнопка "Логин"
     public EditText emailEdT;   // Ввод E-mail
     public EditText passwordEdT; // Ввод password
+    public Button notAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login_account(View view) {
         login_button = findViewById(R.id.loginButton);
-        emailEdT = findViewById(R.id.editTextLoginEmail);
-        passwordEdT = findViewById(R.id.editTextLoginPassword);
+        emailEdT = findViewById(R.id.editTextLoginEmailSignUp);
+        passwordEdT = findViewById(R.id.editTextLoginPasswordSignUp);
 
         if (emailEdT.getText().toString().isEmpty() || passwordEdT.getText().toString().isEmpty()) {
             Toast.makeText(this,"Заполните все поля", Toast.LENGTH_SHORT).show();
@@ -53,5 +50,12 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
     }
+
+
+    public void toRegistAccount(View view) {
+        Intent intent = new Intent(this,SignUpActivity.class);
+        startActivity(intent);
+    }
+
 
 }

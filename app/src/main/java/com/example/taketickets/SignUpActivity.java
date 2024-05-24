@@ -2,20 +2,20 @@ package com.example.taketickets;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.HashMap;
 
@@ -36,20 +36,40 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     public void registration_account(View view) {
-        emailEdT = findViewById(R.id.editTextLoginEmail);
-        passwordEdT = findViewById(R.id.editTextLoginPassword);
-        usernameEdT = findViewById(R.id.editTextUserName);
+        emailEdT = findViewById(R.id.editTextLoginEmailSignUp);
+        passwordEdT = findViewById(R.id.editTextLoginPasswordSignUp);
+        usernameEdT = findViewById(R.id.editTextUserNameSignUp);
 
         if (emailEdT.getText().toString().isEmpty() || passwordEdT.getText().toString().isEmpty() || usernameEdT.getText().toString().isEmpty()) {
             Toast.makeText(this,"Заполните все поля!",Toast.LENGTH_SHORT).show();
         } else {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailEdT.getText().toString(), passwordEdT.getText().toString());
-            HashMap<String, String> userInfo = new HashMap<>();
-            userInfo.put("email",emailEdT.getText().toString());
-            userInfo.put("username", usernameEdT.getText().toString());
-            FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userInfo);
-            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+            Log.d("RRR", "Заход 1");
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailEdT.getText().toString(), passwordEdT.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("RRR","Заход 2");
+                                HashMap<String, String> userInfo = new HashMap<>();
+                                userInfo.put("email",emailEdT.getText().toString());
+                                userInfo.put("username", usernameEdT.getText().toString());
+                                Log.d("RRR","Заход 3");
+                                FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userInfo);
+                                Log.d("RRR","Заход 4");
+                                startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                                Log.d("RRR","Заход 5");
+                            }
+                        }
+                    });
+
+
+
         }
+    }
+
+    public void toLogin(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 

@@ -14,7 +14,7 @@
       android:src="@drawable/auth" />
 
   <EditText
-      android:id="@+id/editTextLoginEmail"
+      android:id="@+id/editTextLoginEmailSignUp"
       android:layout_width="300dp"
       android:layout_height="40dp"
       android:layout_gravity="center_horizontal"
@@ -30,7 +30,7 @@
 
 
   <EditText
-      android:id="@+id/editTextLoginPassword"
+      android:id="@+id/editTextLoginPasswordSignUp"
       android:layout_width="300dp"
       android:layout_height="40dp"
       android:ems="10"
@@ -81,6 +81,7 @@
         android:layout_height="34dp"
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
+        android:onClick="toRegistAccount"
         android:text="Создать аккаунт"
         android:textAllCaps="false"
         android:textColor="@color/coral"
