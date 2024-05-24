@@ -46,6 +46,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.genreTextView.setText(movie.getGenre());
         holder.ageLimitTextView.setText(String.format("%d+", movie.getAgeLimit()));
 
+        // Обработчик нажатия на весь View
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,movie.getAgeLimit() + movie.getTitle() + movie.getGenre(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Отдельный обработчик нажатия на кнопку
+        holder.movieCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,movie.getAgeLimit() + movie.getTitle() + movie.getGenre(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
@@ -69,14 +85,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             genreTextView = itemView.findViewById(R.id.textView_genre);
             ageLimitTextView = itemView.findViewById(R.id.textView_ageLimit);
             movieCardButton = itemView.findViewById(R.id.movie_card_button);
-
-
-            movieCardButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context,"Выбор элемента",Toast.LENGTH_SHORT).show();
-                }
-            });
 
 
         }
