@@ -1,4 +1,4 @@
-package com.example.taketickets;
+package com.example.taketickets.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.taketickets.R;
 import com.example.taketickets.adapters.PosterAdapter;
 import com.example.taketickets.adapters.SimpleAdapter;
 

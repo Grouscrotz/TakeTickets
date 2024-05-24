@@ -3,21 +3,25 @@ package com.example.taketickets;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taketickets.adapters.MovieAdapter;
+import com.example.taketickets.MySupportClasses.Movie;
+import com.example.taketickets.MySupportClasses.MovieCard;
+import com.example.taketickets.fragments.MovieFragment;
+import com.example.taketickets.fragments.MyTicketsFragment;
+import com.example.taketickets.fragments.NewsFragment;
+import com.example.taketickets.fragments.PosterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public FragmentTransaction fragmentTransaction;
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Вызов фрагмента "Афиша"
     public  void showPosterFragment() {
-        PosterFragment fragment = new PosterFragment();
+        PosterFragment fragment = new PosterFragment(this);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_Fragment,fragment);
         fragmentTransaction.commit();
@@ -93,6 +97,22 @@ public class MainActivity extends AppCompatActivity {
         MyTicketsFragment fragment = new MyTicketsFragment();
         showFragment(fragment);
     }
+
+    public void showMovieFragment() {
+        MovieFragment movieFragment = new MovieFragment(movie);
+        showFragment(movieFragment);
+    }
+
+
+    // Примеры. Потом надо реализовать выкачку из БД
+    List<Movie.MovieSessions> sessionsList = Arrays.asList(
+      new Movie.MovieSessions("17:00",750),
+      new Movie.MovieSessions("13:00",350)
+    );
+
+    Movie movie = new Movie("Майор Гром: Игра", "Боевик",14,R.drawable.mayor_grom,sessionsList);
+
+
 
 
 

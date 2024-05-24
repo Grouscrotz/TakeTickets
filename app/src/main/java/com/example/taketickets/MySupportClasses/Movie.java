@@ -1,12 +1,5 @@
 package com.example.taketickets.MySupportClasses;
 
-import android.se.omapi.Session;
-
-import java.util.List;
-
-
-// TODO: Сделать геттеры и сеттеры
-
 import java.util.List;
 
 public class Movie {
@@ -14,92 +7,64 @@ public class Movie {
     private String genre;
     private int ageLimit;
     private int posterResourceId;
-    private List<Session> sessions;
+    private List<MovieSessions> ListMovieSessions;
 
-    public Movie(String title, String genre, int ageLimit, int posterResourceId, List<Session> sessions) {
+    public Movie(String title, String genre, int ageLimit, int posterResourseId, List<MovieSessions> MovieSessions) {
         this.title = title;
         this.genre = genre;
         this.ageLimit = ageLimit;
-        this.posterResourceId = posterResourceId;
-        this.sessions = sessions;
+        this.posterResourceId = posterResourseId;
+        this.ListMovieSessions = MovieSessions;
     }
 
-    // Getters and Setters
     public String getTitle() {
-        return title;
+        return this.title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
 
     public String getGenre() {
-        return genre;
+        return this.genre;
     }
-
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
     public int getAgeLimit() {
-        return ageLimit;
+        return this.ageLimit;
     }
-
     public void setAgeLimit(int ageLimit) {
         this.ageLimit = ageLimit;
     }
 
     public int getPosterResourceId() {
-        return posterResourceId;
+        return this.posterResourceId;
     }
-
     public void setPosterResourceId(int posterResourceId) {
         this.posterResourceId = posterResourceId;
     }
 
-    public List<Session> getSessions() {
-        return sessions;
-    }
 
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
 
-    public static class Session {
+
+    public static class MovieSessions {
+
         private String time;
-        private String format;
-        private String price;
+        private int price;
 
-        public Session(String time, String format, String price) {
+
+        public MovieSessions(String time, int price) {
             this.time = time;
-            this.format = format;
             this.price = price;
         }
 
-        // Getters and Setters
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getFormat() {
-            return format;
-        }
-
-        public void setFormat(String format) {
-            this.format = format;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
     }
-}
 
+
+
+
+
+
+
+}

@@ -10,25 +10,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taketickets.MainActivity;
-import com.example.taketickets.MySupportClasses.Movie;
-import com.example.taketickets.NewsFragment;
+import com.example.taketickets.MySupportClasses.MovieCard;
 import com.example.taketickets.R;
+import com.example.taketickets.fragments.PosterFragment;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movie> movieList;
+    private List<MovieCard> movieCardList;
     public Context context;
+    public MainActivity mainActivity;
 
 
-    public MovieAdapter(List<Movie> movieList, Context context) {
-        this.movieList = movieList;
+    public MovieAdapter(List<MovieCard> movieCardList, Context context, MainActivity mainActivity) {
+        this.movieCardList = movieCardList;
         this.context = context;
+        this.mainActivity = mainActivity;
     }
 
     @NonNull
@@ -40,17 +41,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Movie movie = movieList.get(position);
-        holder.posterImageView.setImageResource(movie.getPosterResourceId());
-        holder.titleTextView.setText(movie.getTitle());
-        holder.genreTextView.setText(movie.getGenre());
-        holder.ageLimitTextView.setText(String.format("%d+", movie.getAgeLimit()));
+        MovieCard movieCard = movieCardList.get(position);
+        holder.posterImageView.setImageResource(movieCard.getPosterResourceId());
+        holder.titleTextView.setText(movieCard.getTitle());
+        holder.genreTextView.setText(movieCard.getGenre());
+        holder.ageLimitTextView.setText(String.format("%d+", movieCard.getAgeLimit()));
 
         // Обработчик нажатия на весь View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,movie.getAgeLimit() + movie.getTitle() + movie.getGenre(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, movieCard.getAgeLimit() + movieCard.getTitle() + movieCard.getGenre(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -58,7 +59,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.movieCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,movie.getAgeLimit() + movie.getTitle() + movie.getGenre(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, movieCard.getAgeLimit() + movieCard.getTitle() + movieCard.getGenre(), Toast.LENGTH_SHORT).show();
+                new PosterFragment(mainActivity).toMovieFragment(); // Переход на фрагмент (фильм и билеты)
+
+
+
+
             }
         });
 
@@ -67,7 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return movieCardList.size();
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {

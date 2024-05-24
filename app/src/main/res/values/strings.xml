@@ -3,4 +3,6 @@
     <string name="bottom_news">Новости</string>
     <string name="bottom_poster">Афиша</string>
     <string name="bottom_tickets">Мои билеты</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
