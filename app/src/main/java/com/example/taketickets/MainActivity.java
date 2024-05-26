@@ -43,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Проверка текущего пользователя на вход в аккаунт
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
 
-
+        
 
         bottomNavigationView = findViewById(R.id.bottomBar); // BottomBar
         onClick_bottomNavigationView(); // обработчик клика на кнопки в BottomBar
