@@ -1,4 +1,4 @@
-package com.example.taketickets;
+package com.example.taketickets.regActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.taketickets.MainActivity;
+import com.example.taketickets.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -56,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 Log.d("RRR","Заход 3");
                                 FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userInfo);
                                 Log.d("RRR","Заход 4");
-                                startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                 Log.d("RRR","Заход 5");
                             }
                         }

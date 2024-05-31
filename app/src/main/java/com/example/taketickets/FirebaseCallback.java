@@ -1,7 +1,10 @@
 package com.example.taketickets;
 
-import com.example.taketickets.MySupportClasses.Test;
+import com.example.taketickets.MySupportClasses.Movie;
+import com.example.taketickets.MySupportClasses.Session;
+
+import java.util.List;
 
 public interface FirebaseCallback {
-    void onCallback(Test test);
+    void onCallback(Movie movie);
 }

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -18,16 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.taketickets.MySupportClasses.Movie;
-import com.example.taketickets.MySupportClasses.MovieCard;
-import com.example.taketickets.MySupportClasses.Test;
+import com.example.taketickets.MySupportClasses.Session;
 import com.example.taketickets.fragments.MovieFragment;
 import com.example.taketickets.fragments.MyTicketsFragment;
 import com.example.taketickets.fragments.NewsFragment;
 import com.example.taketickets.fragments.PosterFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.taketickets.regActivity.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,10 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    boolean shouldCommitTransaction = false;
     public FragmentTransaction fragmentTransaction;
 
     public BottomNavigationView bottomNavigationView;
@@ -82,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (shouldCommitTransaction) {
+            // Зафиксируйте вашу транзакцию фрагмента здесь
+            shouldCommitTransaction = false; // Сбросьте флаг
+        }
+    }
+
     // Метод-обработчик нажатий на кнопки-иконки в BottomNavigationBar
     public void onClick_bottomNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
     public void showFragment(Fragment fragment) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_Fragment,fragment);
-        fragmentTransaction.commit();
+        // fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
 
@@ -144,13 +150,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadDataFromFirebase(String path, FirebaseCallback callback) {
         Log.d("RRR", "Loading data from path: " + path);
-        List<Test> testList = new ArrayList<>();
+        List<Movie> movieList = new ArrayList<>();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(path);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Test test = snapshot.getValue(Test.class);
-                    callback.onCallback(test);
+                    Movie movie = snapshot.getValue(Movie.class);
+                    callback.onCallback(movie);
 
             }
 
@@ -162,6 +168,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // *****
+
+    public void loadSessionFromFirebase(String path, FirebaseCallbackSecond callback) {
+        List<Session> sessionList = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(path).child("sessions");
+        Log.d("RRR", String.valueOf(databaseReference) + "        Проверка");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sessionList.clear();
+                for (DataSnapshot sessionSnapshot : snapshot.getChildren()) {
+                    Session session = sessionSnapshot.getValue(Session.class);
+                    Log.d("RRR", String.valueOf(session) + "     Заход сессия");
+                    sessionList.add(session);
+                }
+                shouldCommitTransaction = true;
+                callback.onCallback(sessionList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
 

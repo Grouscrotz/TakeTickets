@@ -23,7 +23,7 @@
             android:name=".UploadActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".regActivity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".regActivity.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

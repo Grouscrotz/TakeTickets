@@ -18,7 +18,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.taketickets.MySupportClasses.Test;
+import com.example.taketickets.MySupportClasses.Movie;
+import com.example.taketickets.MySupportClasses.Session;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,17 +38,26 @@ public class UploadActivity extends AppCompatActivity {
     String imageURL;
     Uri uri;
 
+    EditText priceSession,timeSession,movieSession;
+    Button buttonAddSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
-        next_activity_button = findViewById(R.id.button3);
         saveButton = findViewById(R.id.upload_button);
         uploadImage = findViewById(R.id.imageUpload);
         uploadMovieName = findViewById(R.id.edTUpload_movieName);
         uploadMovieGenre = findViewById(R.id.edTUpload_movieGenre);
         uploadMovieAgeLimit = findViewById(R.id.edTUpload_ageLimit);
+
+        priceSession = findViewById(R.id.editTextTextSessionPrice);
+        timeSession = findViewById(R.id.editTextTextSessionTime);
+        buttonAddSession = findViewById(R.id.btnSessionAdd);
+        movieSession = findViewById(R.id.editTextMovieSession);
+
+
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -86,10 +96,10 @@ public class UploadActivity extends AppCompatActivity {
         });
 
 
-        next_activity_button.setOnClickListener(new View.OnClickListener() {
+        buttonAddSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UploadActivity.this, DetailActivity.class));
+                uploadSession();
             }
         });
 
@@ -144,10 +154,11 @@ public class UploadActivity extends AppCompatActivity {
         String genre = uploadMovieGenre.getText().toString();
         String ageLimit = uploadMovieAgeLimit.getText().toString();
 
-        Test testClass = new Test(title, genre, ageLimit, imageURL);
+
+         Movie movieClass = new Movie(title, genre, ageLimit, imageURL);
 
         FirebaseDatabase.getInstance().getReference("Android Tutorials").child(title)
-                .setValue(testClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                .setValue(movieClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
@@ -167,5 +178,36 @@ public class UploadActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    // Метод для добавления сессий к фильму
+    public void uploadSession() {
+        String price = priceSession.getText().toString();
+        String time = timeSession.getText().toString();
+        String nameMovie = movieSession.getText().toString();
+
+        Session session = new Session(time,price);
+
+        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(nameMovie).child("sessions").child(time)
+                .setValue(session).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Data saved successfully");
+                            Toast.makeText(UploadActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Log.e(TAG, "Data upload failed", task.getException());
+                            Toast.makeText(UploadActivity.this, "Data upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Data upload failed", e);
+                        Toast.makeText(UploadActivity.this, "Data upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+   }
+
 
 }

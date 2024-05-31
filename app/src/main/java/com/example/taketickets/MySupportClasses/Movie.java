@@ -5,16 +5,17 @@ import java.util.List;
 public class Movie {
     private String title;
     private String genre;
-    private int ageLimit;
-    private int posterResourceId;
-    private List<MovieSessions> ListMovieSessions;
+    private String ageLimit;
+    private String imageURL;
 
-    public Movie(String title, String genre, int ageLimit, int posterResourseId, List<MovieSessions> MovieSessions) {
+    public Movie() {
+    }
+
+    public Movie(String title, String genre, String ageLimit, String imageURL) {
         this.title = title;
         this.genre = genre;
         this.ageLimit = ageLimit;
-        this.posterResourceId = posterResourseId;
-        this.ListMovieSessions = MovieSessions;
+        this.imageURL = imageURL;
     }
 
     public String getTitle() {
@@ -31,38 +32,19 @@ public class Movie {
         this.genre = genre;
     }
 
-    public int getAgeLimit() {
+    public String getAgeLimit() {
         return this.ageLimit;
     }
-    public void setAgeLimit(int ageLimit) {
+    public void setAgeLimit(String ageLimit) {
         this.ageLimit = ageLimit;
     }
 
-    public int getPosterResourceId() {
-        return this.posterResourceId;
+    public String getImageURL() {
+        return this.imageURL;
     }
-    public void setPosterResourceId(int posterResourceId) {
-        this.posterResourceId = posterResourceId;
+    public void setImageURL(String posterResourceId) {
+        this.imageURL = posterResourceId;
     }
-
-
-
-
-    public static class MovieSessions {
-
-        private String time;
-        private int price;
-
-
-        public MovieSessions(String time, int price) {
-            this.time = time;
-            this.price = price;
-        }
-
-    }
-
-
-
 
 
 

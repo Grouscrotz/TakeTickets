@@ -1,13 +1,13 @@
 package com.example.taketickets.fragments;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +15,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.taketickets.FirebaseCallback;
+import com.example.taketickets.FirebaseCallbackSecond;
+import com.example.taketickets.MainActivity;
 import com.example.taketickets.MySupportClasses.Movie;
-import com.example.taketickets.MySupportClasses.Test;
+import com.example.taketickets.MySupportClasses.Session;
 import com.example.taketickets.R;
+import com.example.taketickets.adapters.SessionAdapter;
+
+import java.util.List;
 
 
 public class MovieFragment extends Fragment {
-    private Test test;
+    private Movie movie;
+    public MainActivity mainActivity;
+    FirebaseCallbackSecond FirebaseCallback;
 
-    public MovieFragment(Test test) {
-        this.test = test;
+    public MovieFragment(Movie movie, MainActivity mainActivity) {
+        this.movie = movie;
+        this.mainActivity = mainActivity;
     }
-
 
 
     @Override
@@ -49,17 +57,27 @@ public class MovieFragment extends Fragment {
         TextView  ageLimit = view.findViewById(R.id.textViewMovieAgeLimit);
         TextView genre = view.findViewById(R.id.textViewMovieGenre);
         ImageView imageView = view.findViewById(R.id.imageViewMovie);
+        String movieTitle = movie.getTitle();
 
-        ageLimit.setText(String.valueOf(test.getAgeLimit()));
-        genre.setText(test.getGenre());
-        // Используем Glide для загрузки изображения
+        ageLimit.setText(String.valueOf(movie.getAgeLimit()));
+        genre.setText(movie.getGenre());
         Glide.with(this)
-                .load(test.getImageURL())
-                .placeholder(R.drawable.ic_email) // placeholder, если нужно
-                .error(R.drawable.ic_launcher_background) // изображение ошибки, если нужно
+                .load(movie.getImageURL())
+                .placeholder(R.drawable.ic_email)
+                .error(R.drawable.ic_launcher_background)
                 .into(imageView);
-        Log.d("RRR", String.valueOf(Uri.parse(test.getImageURL())));
-        title.setText(test.getTitle());
+        title.setText(movie.getTitle());
+
+        RecyclerView sessionsRecyclerView = view.findViewById(R.id.recyclerViewSessions);
+        sessionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+
+        mainActivity.loadSessionFromFirebase(movie.getTitle(), new FirebaseCallbackSecond() {
+            @Override
+            public void onCallback(List<Session> sessionList) {
+                SessionAdapter sessionAdapter = new SessionAdapter(sessionList);
+                sessionsRecyclerView.setAdapter(sessionAdapter);
+            }
+        });
 
     }
 

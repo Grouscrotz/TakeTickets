@@ -1,4 +1,4 @@
-package com.example.taketickets;
+package com.example.taketickets.regActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.taketickets.MainActivity;
+import com.example.taketickets.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void toRegistAccount(View view) {
-        Intent intent = new Intent(this,SignUpActivity.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 
