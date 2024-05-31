@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.taketickets.MainActivity;
 import com.example.taketickets.MySupportClasses.MovieCard;
 import com.example.taketickets.R;
+import com.example.taketickets.fragments.MovieFragment;
 import com.example.taketickets.fragments.PosterFragment;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<MovieCard> movieCardList;
     public Context context;
     public MainActivity mainActivity;
+    public MovieFragment movieFragment;
 
 
     public MovieAdapter(List<MovieCard> movieCardList, Context context, MainActivity mainActivity) {
@@ -60,9 +62,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, movieCard.getAgeLimit() + movieCard.getTitle() + movieCard.getGenre(), Toast.LENGTH_SHORT).show();
-                new PosterFragment(mainActivity).toMovieFragment(); // Переход на фрагмент (фильм и билеты)
-
-
+                // new PosterFragment(mainActivity).toMovieFragment(); // Переход на фрагмент (фильм и билеты)
 
 
             }

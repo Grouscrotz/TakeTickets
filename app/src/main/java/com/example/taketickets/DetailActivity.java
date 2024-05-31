@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         testList = new ArrayList<>();
-        adapter = new TestAdapter(testList);
+        //adapter = new TestAdapter(testList);
         recyclerView.setAdapter(adapter);
 
         loadDataFromFirebase();

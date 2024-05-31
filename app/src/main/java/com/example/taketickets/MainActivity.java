@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.taketickets.MySupportClasses.Movie;
 import com.example.taketickets.MySupportClasses.MovieCard;
+import com.example.taketickets.MySupportClasses.Test;
 import com.example.taketickets.fragments.MovieFragment;
 import com.example.taketickets.fragments.MyTicketsFragment;
 import com.example.taketickets.fragments.NewsFragment;
@@ -27,7 +29,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -125,21 +133,33 @@ public class MainActivity extends AppCompatActivity {
         showFragment(fragment);
     }
 
-    public void showMovieFragment() {
-        MovieFragment movieFragment = new MovieFragment(movie);
+    public void showMovieFragment(MovieFragment movieFragment) {
         showFragment(movieFragment);
     }
 
 
-    // Примеры. Потом надо реализовать выкачку из БД
-    List<Movie.MovieSessions> sessionsList = Arrays.asList(
-      new Movie.MovieSessions("17:00",750),
-      new Movie.MovieSessions("13:00",350)
-    );
-
-    Movie movie = new Movie("Майор Гром: Игра", "Боевик",14,R.drawable.mayor_grom,sessionsList);
 
 
+    // Movie movie = new Movie("Майор Гром: Игра", "Боевик",14,R.drawable.mayor_grom,sessionsList);
+
+    public void loadDataFromFirebase(String path, FirebaseCallback callback) {
+        Log.d("RRR", "Loading data from path: " + path);
+        List<Test> testList = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(path);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Test test = snapshot.getValue(Test.class);
+                    callback.onCallback(test);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     // *****
 

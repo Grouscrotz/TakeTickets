@@ -1,26 +1,30 @@
 package com.example.taketickets.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.taketickets.MySupportClasses.Movie;
+import com.example.taketickets.MySupportClasses.Test;
 import com.example.taketickets.R;
 
 
 public class MovieFragment extends Fragment {
-    private Movie movie;
+    private Test test;
 
-    public MovieFragment(Movie movie) {
-        this.movie = movie;
+    public MovieFragment(Test test) {
+        this.test = test;
     }
 
 
@@ -46,10 +50,16 @@ public class MovieFragment extends Fragment {
         TextView genre = view.findViewById(R.id.textViewMovieGenre);
         ImageView imageView = view.findViewById(R.id.imageViewMovie);
 
-        ageLimit.setText(String.valueOf(movie.getAgeLimit()) + "+");
-        genre.setText(movie.getGenre());
-        imageView.setImageResource(movie.getPosterResourceId());
-        title.setText(movie.getTitle());
+        ageLimit.setText(String.valueOf(test.getAgeLimit()));
+        genre.setText(test.getGenre());
+        // Используем Glide для загрузки изображения
+        Glide.with(this)
+                .load(test.getImageURL())
+                .placeholder(R.drawable.ic_email) // placeholder, если нужно
+                .error(R.drawable.ic_launcher_background) // изображение ошибки, если нужно
+                .into(imageView);
+        Log.d("RRR", String.valueOf(Uri.parse(test.getImageURL())));
+        title.setText(test.getTitle());
 
     }
 
