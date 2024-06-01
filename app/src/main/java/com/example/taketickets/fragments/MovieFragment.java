@@ -1,10 +1,12 @@
 package com.example.taketickets.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,8 @@ import java.util.List;
 
 
 public class MovieFragment extends Fragment {
+    private Context context;
+    private FragmentTransaction fragmentTransaction;
     private Movie movie;
     public MainActivity mainActivity;
     FirebaseCallbackSecond FirebaseCallback;
@@ -74,11 +78,26 @@ public class MovieFragment extends Fragment {
         mainActivity.loadSessionFromFirebase(movie.getTitle(), new FirebaseCallbackSecond() {
             @Override
             public void onCallback(List<Session> sessionList) {
-                SessionAdapter sessionAdapter = new SessionAdapter(sessionList, mainActivity);
+                SessionAdapter sessionAdapter = new SessionAdapter(movie.getTitle(), sessionList, mainActivity,MovieFragment.this);
                 sessionsRecyclerView.setAdapter(sessionAdapter);
             }
         });
 
     }
+
+    public void navigateToSeatSelectionFragment(Session session) {
+        String sessionTime = session.getTime();
+        String sessionPrice = String.valueOf(session.getPrice());
+
+        SeatSelectionFragment seatSelectionFragment = new SeatSelectionFragment(mainActivity,movie.getTitle(), sessionTime, sessionPrice);
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_Fragment, seatSelectionFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+
+
 
 }

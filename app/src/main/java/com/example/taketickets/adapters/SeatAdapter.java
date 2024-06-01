@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.taketickets.MainActivity;
 import com.example.taketickets.MySupportClasses.Seat;
 import com.example.taketickets.R;
+import com.example.taketickets.fragments.SeatSelectionFragment;
 
 import java.util.List;
 
@@ -21,11 +22,13 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
 
     private List<Seat> seatList;
 
+    private SeatSelectionFragment seatSelectionFragment;
 
 
-    public SeatAdapter(List<Seat> seatList, MainActivity mainActivity) {
+    public SeatAdapter(List<Seat> seatList, MainActivity mainActivity, SeatSelectionFragment seatSelectionFragment) {
         this.seatList = seatList;
         this.mainActivity = mainActivity;
+        this.seatSelectionFragment = seatSelectionFragment;
     }
 
     @NonNull
@@ -48,6 +51,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
                 if (seat.isAvailable()) {
                     seat.setSelected(!seat.isSelected());
                     notifyItemChanged(position);
+                    seatSelectionFragment.onSeatClicked(seat);
 
                 } else {
                     Toast.makeText(v.getContext(), "Seat " + seat.getSeatNumber() + " is not available", Toast.LENGTH_SHORT).show();

@@ -11,17 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.taketickets.MainActivity;
 import com.example.taketickets.MySupportClasses.Session;
 import com.example.taketickets.R;
+import com.example.taketickets.fragments.MovieFragment;
 import com.example.taketickets.fragments.SeatSelectionFragment;
 
 import java.util.List;
 
 public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionViewHolder> {
+    public String movieTitle;
     private List<Session> sessionList;
     MainActivity mainActivity;
+    MovieFragment movieFragment;
 
-    public SessionAdapter(List<Session> sessionList, MainActivity mainActivity) {
+    public SessionAdapter(String movieTitle,List<Session> sessionList, MainActivity mainActivity, MovieFragment movieFragment) {
+        this.movieTitle = movieTitle;
         this.sessionList = sessionList;
         this.mainActivity = mainActivity;
+        this.movieFragment = movieFragment;
+
     }
 
     @NonNull
@@ -40,7 +46,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.showSeatFragment();
+                movieFragment.navigateToSeatSelectionFragment(session);
             }
         });
 

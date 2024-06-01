@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.taketickets.MainActivity;
 import com.example.taketickets.MySupportClasses.Seat;
@@ -23,13 +25,20 @@ import java.util.List;
 
 public class SeatSelectionFragment extends Fragment {
     public MainActivity mainActivity;
-
     private RecyclerView seatRecyclerView;
     private SeatAdapter seatAdapter;
     private List<Seat> seatList;
+    public String movieTitle;
+    public String sessionTime, sessionPrice;
 
-    public  SeatSelectionFragment(MainActivity mainActivity) {
+    List<Seat> chooseSeat;
+
+    public  SeatSelectionFragment(MainActivity mainActivity,String movieTitle,String sessionTime,String sessionPrice) {
         this.mainActivity = mainActivity;
+        this.movieTitle = movieTitle;
+        this.sessionTime = sessionTime;
+        this.sessionPrice = sessionPrice;
+
     }
     @Nullable
     @Override
@@ -39,9 +48,11 @@ public class SeatSelectionFragment extends Fragment {
         seatRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 5)); // 5 колонок для примера
         loadSeats();
 
-        seatAdapter = new SeatAdapter(seatList, mainActivity);
+        seatAdapter = new SeatAdapter(seatList, mainActivity,this);
 
         seatRecyclerView.setAdapter(seatAdapter);
+
+        chooseSeat = new ArrayList<>();
         return view;
     }
 
@@ -50,6 +61,11 @@ public class SeatSelectionFragment extends Fragment {
         for (int i = 0; i < 30; i++) { // 30 мест для примера
             seatList.add(new Seat("A" + (i + 1), true));
         }
+    }
+
+    // Метод-обработчик нажатия: добавялет выбранное место в список
+    public void onSeatClicked(Seat seat) {
+        chooseSeat.add(seat);
     }
 }
 

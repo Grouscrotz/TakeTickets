@@ -145,10 +145,13 @@ public class MainActivity extends AppCompatActivity {
         showFragment(movieFragment);
     }
 
+    /*
     public void showSeatFragment() {
         SeatSelectionFragment seatSelectionFragment = new SeatSelectionFragment(this);
         showFragment(seatSelectionFragment);
     }
+
+     */
 
 
 
