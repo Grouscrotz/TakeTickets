@@ -74,7 +74,7 @@ public class MovieFragment extends Fragment {
         mainActivity.loadSessionFromFirebase(movie.getTitle(), new FirebaseCallbackSecond() {
             @Override
             public void onCallback(List<Session> sessionList) {
-                SessionAdapter sessionAdapter = new SessionAdapter(sessionList);
+                SessionAdapter sessionAdapter = new SessionAdapter(sessionList, mainActivity);
                 sessionsRecyclerView.setAdapter(sessionAdapter);
             }
         });

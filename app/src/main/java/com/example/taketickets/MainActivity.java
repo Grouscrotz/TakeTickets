@@ -22,6 +22,7 @@ import com.example.taketickets.fragments.MovieFragment;
 import com.example.taketickets.fragments.MyTicketsFragment;
 import com.example.taketickets.fragments.NewsFragment;
 import com.example.taketickets.fragments.PosterFragment;
+import com.example.taketickets.fragments.SeatSelectionFragment;
 import com.example.taketickets.regActivity.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -139,10 +140,15 @@ public class MainActivity extends AppCompatActivity {
         showFragment(fragment);
     }
 
+    // Метод для переход на фрагмент фильма
     public void showMovieFragment(MovieFragment movieFragment) {
         showFragment(movieFragment);
     }
 
+    public void showSeatFragment() {
+        SeatSelectionFragment seatSelectionFragment = new SeatSelectionFragment(this);
+        showFragment(seatSelectionFragment);
+    }
 
 
 
