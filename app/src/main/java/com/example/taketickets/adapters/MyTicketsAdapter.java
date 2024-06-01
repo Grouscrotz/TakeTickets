@@ -23,11 +23,7 @@ public class MyTicketsAdapter extends RecyclerView.Adapter<MyTicketsAdapter.MyTi
         this.myTicketList = myTicketList;
     }
 
-    // Добавим метод для обновления списка билетов
-    public void updateTicketsList(List<MyTicket> newTickets) {
-        myTicketList = new ArrayList<>(newTickets);
-        notifyDataSetChanged();
-    }
+
 
     @NonNull
     @Override
@@ -39,11 +35,7 @@ public class MyTicketsAdapter extends RecyclerView.Adapter<MyTicketsAdapter.MyTi
     @Override
     public void onBindViewHolder(@NonNull MyTicketsViewHolder holder, int position) {
         MyTicket myTicket = myTicketList.get(position);
-        Log.d("Adapter", "Binding data at position: " + position);
-        Log.d("Adapter", "Movie Title: " + myTicket.getMovieTitle());
-        Log.d("Adapter", "Session Time: " + myTicket.getSessionTime());
-        Log.d("Adapter", "Seat Number: " + myTicket.getSeatNumber());
-        Log.d("Adapter", "Session Price: " + myTicket.getSessionPrice());
+
         holder.movieTitle.setText(myTicket.getMovieTitle());
         holder.sessionTime.setText(myTicket.getSessionTime());
         holder.seatNumber.setText(myTicket.getSeatNumber());

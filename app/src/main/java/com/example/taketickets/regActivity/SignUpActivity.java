@@ -32,8 +32,6 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-
-
     }
 
 
@@ -41,30 +39,26 @@ public class SignUpActivity extends AppCompatActivity {
         emailEdT = findViewById(R.id.editTextLoginEmailSignUp);
         passwordEdT = findViewById(R.id.editTextLoginPasswordSignUp);
         usernameEdT = findViewById(R.id.editTextUserNameSignUp);
-
+        Log.d("YYY","ТУТ!");
         if (emailEdT.getText().toString().isEmpty() || passwordEdT.getText().toString().isEmpty() || usernameEdT.getText().toString().isEmpty()) {
             Toast.makeText(this,"Заполните все поля!",Toast.LENGTH_SHORT).show();
         } else {
-            Log.d("RRR", "Заход 1");
+
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailEdT.getText().toString(), passwordEdT.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Log.d("RRR","Заход 2");
                                 HashMap<String, String> userInfo = new HashMap<>();
                                 userInfo.put("email",emailEdT.getText().toString());
                                 userInfo.put("username", usernameEdT.getText().toString());
-                                Log.d("RRR","Заход 3");
+                                userInfo.put("role","user");
+
                                 FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userInfo);
-                                Log.d("RRR","Заход 4");
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                                Log.d("RRR","Заход 5");
                             }
                         }
                     });
-
-
 
         }
     }

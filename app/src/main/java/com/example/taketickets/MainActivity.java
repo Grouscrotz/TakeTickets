@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         
 
         bottomNavigationView = findViewById(R.id.bottomBar); // BottomBar
+        checkRole();
         onClick_bottomNavigationView(); // обработчик клика на кнопки в BottomBar
 
         // Меняем цвет надписей на статус-баре телефона (зарядка, время, связь, уведомления)
@@ -66,14 +67,6 @@ public class MainActivity extends AppCompatActivity {
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
-
-        button = findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, UploadActivity.class));
-            }
-        });
 
 
 
@@ -103,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (menuItem.getItemId() == R.id.bottom_tickets) {
                     showMyTicketsFragment();
+                    return true;
+                }
+                if (menuItem.getItemId() == R.id.bottom_admin) {
+                    showAdminActivity();
                     return true;
                 }
                 return false;
@@ -145,13 +142,10 @@ public class MainActivity extends AppCompatActivity {
         showFragment(movieFragment);
     }
 
-    /*
-    public void showSeatFragment() {
-        SeatSelectionFragment seatSelectionFragment = new SeatSelectionFragment(this);
-        showFragment(seatSelectionFragment);
+    public void showAdminActivity() {
+        Intent intent = new Intent(this, UploadActivity.class);
+        startActivity(intent);
     }
-
-     */
 
 
 
@@ -201,6 +195,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public void checkRole() {
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID).child("role");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String role = dataSnapshot.getValue(String.class);
+                if (role.equals("admin")) {
+                    MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.bottom_admin);
+                    menuItem.setVisible(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
 
 

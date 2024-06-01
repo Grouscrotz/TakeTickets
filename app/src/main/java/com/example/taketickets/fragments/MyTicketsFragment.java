@@ -92,11 +92,9 @@ public class MyTicketsFragment extends Fragment {
                     myTickets.add(ticket);
                 }
 
-                System.out.println(myTickets.get(0));
-                System.out.println(myTickets.get(1));
-                System.out.println(myTickets.get(2));
-                myTicketsAdapter.updateTicketsList(myTickets);
-                System.out.println(myTickets);
+
+                myTicketsAdapter.notifyDataSetChanged();
+
 
             }
 

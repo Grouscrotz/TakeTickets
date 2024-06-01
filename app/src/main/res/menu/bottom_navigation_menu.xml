@@ -11,6 +11,12 @@
     <item
         android:id="@+id/bottom_tickets"
         android:icon="@drawable/icon_tickets"
-        android:title="@string/bottom_tickets" />
+        android:title="@string/bottom_tickets"
+        />
+    <item
+        android:id="@+id/bottom_admin"
+        android:icon="@drawable/ic_admin"
+        android:title="Админ"
+        android:visible="false"/>
 
 </menu>
