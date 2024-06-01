@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="coral">#FF7F50</color>
     <color name="light_gray">#D3D3D3</color>
+    <color name="olive_grab">#8AB32D</color>
 
 </resources>

@@ -22,11 +22,14 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
 
     private List<Seat> seatList;
 
+    private List<Seat> selectedSeats; // Список выбранных мест
+
     private SeatSelectionFragment seatSelectionFragment;
 
 
-    public SeatAdapter(List<Seat> seatList, MainActivity mainActivity, SeatSelectionFragment seatSelectionFragment) {
+    public SeatAdapter(List<Seat> seatList,List<Seat> selectedSeats, MainActivity mainActivity, SeatSelectionFragment seatSelectionFragment) {
         this.seatList = seatList;
+        this.selectedSeats = selectedSeats;
         this.mainActivity = mainActivity;
         this.seatSelectionFragment = seatSelectionFragment;
     }
@@ -42,22 +45,30 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     public void onBindViewHolder(@NonNull SeatViewHolder holder, int position) {
         Seat seat = seatList.get(position);
         holder.seatNumber.setText(seat.getSeatNumber());
-        holder.itemView.setSelected(seat.isSelected());
         holder.itemView.setEnabled(seat.isAvailable());
+        holder.itemView.setSelected(selectedSeats.contains(seat));
+
+        holder.seatNumber.setEnabled(seat.isAvailable());
+        holder.seatNumber.setSelected(selectedSeats.contains(seat));
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (seat.isAvailable()) {
+
                     seat.setSelected(!seat.isSelected());
-                    notifyItemChanged(position);
                     seatSelectionFragment.onSeatClicked(seat);
+                    notifyItemChanged(position);
 
                 } else {
                     Toast.makeText(v.getContext(), "Seat " + seat.getSeatNumber() + " is not available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
     }
 
