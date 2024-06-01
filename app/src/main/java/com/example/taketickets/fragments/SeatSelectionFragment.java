@@ -20,6 +20,7 @@ import com.example.taketickets.MySupportClasses.Movie;
 import com.example.taketickets.MySupportClasses.Seat;
 import com.example.taketickets.R;
 import com.example.taketickets.adapters.SeatAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -38,17 +40,22 @@ public class SeatSelectionFragment extends Fragment {
     public String movieTitle;
     public String sessionTime, sessionPrice;
 
+    private String userId;
+
     List<Seat> selectedSeats;
 
     Button buyButton;
 
-    public  SeatSelectionFragment(MainActivity mainActivity,String movieTitle,String sessionTime,String sessionPrice) {
+    public int orderCount = 1;
+
+    public SeatSelectionFragment(MainActivity mainActivity, String movieTitle, String sessionTime, String sessionPrice) {
         this.mainActivity = mainActivity;
         this.movieTitle = movieTitle;
         this.sessionTime = sessionTime;
         this.sessionPrice = sessionPrice;
 
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,7 +66,7 @@ public class SeatSelectionFragment extends Fragment {
         seatList = new ArrayList<>();
         selectedSeats = new ArrayList<>();
 
-        seatAdapter = new SeatAdapter(seatList,selectedSeats, mainActivity,this);
+        seatAdapter = new SeatAdapter(seatList, selectedSeats, mainActivity, this);
 
         seatRecyclerView.setAdapter(seatAdapter);
 
@@ -137,15 +144,34 @@ public class SeatSelectionFragment extends Fragment {
             databaseReference.child(seat.getSeatNumber()).child("available").setValue(false);
         }
 
+        orderToFirebase();
         Toast.makeText(getContext(), "Order submitted successfully!", Toast.LENGTH_SHORT).show();
         selectedSeats.clear(); // Очистка списка выбранных мест после отправки заказа
         loadSeats(); // Перезагрузка мест после отправки заказа
     }
 
+    // Метод для добавления заказов текущему пользователю в БД
+    public void orderToFirebase() {
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("Orders").child(movieTitle);
+
+        for (Seat seat : selectedSeats) {
+            String orderKey = movieTitle + orderCount;
+
+            DatabaseReference orderReference = databaseReference.child(orderKey);
+
+            HashMap<String, String> orderInfo = new HashMap<>();
+            orderInfo.put("title", movieTitle);
+            orderInfo.put("sessionTime", sessionTime);
+            orderInfo.put("sessionPrice", sessionPrice);
+            orderInfo.put("numberSeat", seat.getSeatNumber());
+
+            orderReference.setValue(orderInfo);
+
+            orderCount += 1;
+        }
 
 
-
-
-
+    }
 }
 
