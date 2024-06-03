@@ -24,10 +24,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
 
 public class UploadActivity extends AppCompatActivity {
     private static final String TAG = "UploadActivity";
@@ -184,6 +188,14 @@ public class UploadActivity extends AppCompatActivity {
                         Toast.makeText(UploadActivity.this, "Data upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Trailers").child(title);
+                 HashMap<String,String> trailerInfo = new HashMap<>();
+                 trailerInfo.put("uri", youtube);
+                 databaseReference.setValue(trailerInfo);
+
+
+
     }
 
     // Метод для добавления сессий к фильму

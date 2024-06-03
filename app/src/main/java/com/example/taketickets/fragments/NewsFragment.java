@@ -16,16 +16,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.taketickets.FirebaseCallbackTrailer;
+import com.example.taketickets.MySupportClasses.MovieTrailer;
 import com.example.taketickets.R;
 import com.example.taketickets.adapters.PosterAdapter;
 import com.example.taketickets.adapters.SimpleAdapter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class NewsFragment extends Fragment {
     public static Context context;
+
+    private RecyclerView recyclerViewTrailer;
+    private SimpleAdapter trailerAdapter;
+    private List<MovieTrailer> trailerList;
 
     public NewsFragment() { }
 
@@ -58,7 +65,34 @@ public class NewsFragment extends Fragment {
 
 
 
+        recyclerViewTrailer = view.findViewById(R.id.recyclerViewTrailers);
+        recyclerViewTrailer.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+
+        trailerList = new ArrayList<>();
+        trailerAdapter = new SimpleAdapter(trailerList);
+
+        recyclerViewTrailer.setAdapter(trailerAdapter);
+
+        loadTrailersFromFirebase();
+
+
+
+
     }
+
+    private void loadTrailersFromFirebase() {
+        MovieTrailer.getTrailers(new FirebaseCallbackTrailer() {
+            @Override
+            public void onCallback(List<MovieTrailer> trailers) {
+                trailerList.clear();
+                trailerList.addAll(trailers);
+                trailerAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+
+
 
 
     //? метод, потому что раньше RecyclerView не отображался( не передавался context почему)
