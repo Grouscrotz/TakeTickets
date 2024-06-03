@@ -34,7 +34,7 @@ public class UploadActivity extends AppCompatActivity {
 
     ImageView uploadImage;
     Button saveButton,next_activity_button;
-    EditText uploadMovieName, uploadMovieGenre, uploadMovieAgeLimit;
+    EditText uploadMovieName, uploadMovieGenre, uploadMovieAgeLimit,uploadMoviePlot,uploadMovieKinopoisk,uploadMovieYoutube;
     String imageURL;
     Uri uri;
 
@@ -57,7 +57,10 @@ public class UploadActivity extends AppCompatActivity {
         buttonAddSession = findViewById(R.id.btnSessionAdd);
         movieSession = findViewById(R.id.editTextMovieSession);
 
-
+        // Новые поля
+        uploadMoviePlot = findViewById(R.id.edTUpload_plot);
+        uploadMovieKinopoisk = findViewById(R.id.edTUpload_kinopoisk);
+        uploadMovieYoutube = findViewById(R.id.edTUpload_youtube);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -154,8 +157,12 @@ public class UploadActivity extends AppCompatActivity {
         String genre = uploadMovieGenre.getText().toString();
         String ageLimit = uploadMovieAgeLimit.getText().toString();
 
+        // Новые поля
+        String plot = uploadMoviePlot.getText().toString();
+        String kinoposk = uploadMovieKinopoisk.getText().toString();
+        String youtube = uploadMovieYoutube.getText().toString();
 
-         Movie movieClass = new Movie(title, genre, ageLimit, imageURL);
+         Movie movieClass = new Movie(title, genre, ageLimit, imageURL,plot,kinoposk,youtube);
 
         FirebaseDatabase.getInstance().getReference("Android Tutorials").child(title)
                 .setValue(movieClass).addOnCompleteListener(new OnCompleteListener<Void>() {

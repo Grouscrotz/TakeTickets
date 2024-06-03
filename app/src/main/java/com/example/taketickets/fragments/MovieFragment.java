@@ -1,6 +1,8 @@
 package com.example.taketickets.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,8 +66,15 @@ public class MovieFragment extends Fragment {
         TextView  ageLimit = view.findViewById(R.id.textViewMovieAgeLimit);
         TextView genre = view.findViewById(R.id.textViewMovieGenre);
         ImageView imageView = view.findViewById(R.id.imageViewMovie);
-        String movieTitle = movie.getTitle();
 
+        ImageView kinopoisk = view.findViewById(R.id.imageViewKinopoisk);
+
+        // Новые поля
+
+        TextView plot = view.findViewById(R.id.textViewMoviePlot);
+        plot.setText(movie.getPlot());
+
+        String movieTitle = movie.getTitle();
         ageLimit.setText(String.valueOf(movie.getAgeLimit()));
         genre.setText(movie.getGenre());
         Glide.with(this)
@@ -80,6 +92,29 @@ public class MovieFragment extends Fragment {
             public void onCallback(List<Session> sessionList) {
                 SessionAdapter sessionAdapter = new SessionAdapter(movie.getTitle(), sessionList, mainActivity,MovieFragment.this);
                 sessionsRecyclerView.setAdapter(sessionAdapter);
+            }
+        });
+
+        String youtube = movie.getYoutube();
+        // НОВОЕ
+        WebView webView = (WebView) view.findViewById(R.id.webView);
+
+
+        webView.setWebViewClient(new WebViewClient()); //Помогает приложению открывать ссылки
+        // внутри WebView, а не во внешнем браузере
+
+        webView.getSettings().setJavaScriptEnabled(true); //Включаем поддержку JavaScript
+
+        webView.loadUrl(youtube); //Загрузка страницы
+
+
+        kinopoisk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(movie.getKinopoisk()));
+                startActivity(intent);
             }
         });
 

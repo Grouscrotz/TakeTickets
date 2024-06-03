@@ -8,14 +8,22 @@ public class Movie {
     private String ageLimit;
     private String imageURL;
 
+    // Новые поля
+    private  String plot;
+    private String kinopoisk;
+    private String youtube;
+
     public Movie() {
     }
 
-    public Movie(String title, String genre, String ageLimit, String imageURL) {
+    public Movie(String title, String genre, String ageLimit, String imageURL, String plot, String kinopoisk, String youtube) {
         this.title = title;
         this.genre = genre;
         this.ageLimit = ageLimit;
         this.imageURL = imageURL;
+        this.plot = plot;
+        this.kinopoisk = kinopoisk;
+        this.youtube = youtube;
     }
 
     public String getTitle() {
@@ -46,7 +54,26 @@ public class Movie {
         this.imageURL = posterResourceId;
     }
 
+    public String getPlot () {
+        return this.plot;
+    }
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
 
+    public String getKinopoisk() {
+        return kinopoisk;
+    }
 
+    public void setKinopoisk(String kinopoisk) {
+        this.kinopoisk = kinopoisk;
+    }
 
+    public String getYoutube() {
+        return youtube;
+    }
+
+    public void setYoutube(String youtube) {
+        this.youtube = youtube;
+    }
 }
