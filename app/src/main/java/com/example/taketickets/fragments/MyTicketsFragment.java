@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.taketickets.MySupportClasses.MyTicket;
 import com.example.taketickets.R;
@@ -32,7 +33,7 @@ public class MyTicketsFragment extends Fragment {
     public RecyclerView recyclerView;
     public MyTicketsAdapter myTicketsAdapter;
     public List<MyTicket> myTickets;
-
+    public ImageView imageView;
     public MyTicketsFragment() {
         // Required empty public constructor
     }
@@ -50,6 +51,7 @@ public class MyTicketsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_tickets, container, false);
+        imageView = view.findViewById(R.id.imageViewStatusNoTickets);
 
 
         recyclerView = view.findViewById(R.id.recyclerViewMyTickets);
@@ -66,7 +68,10 @@ public class MyTicketsFragment extends Fragment {
         myTicketsAdapter = new MyTicketsAdapter(myTickets);
         recyclerView.setAdapter(myTicketsAdapter);
 
-
+        // Если список заказов пуст - отображаем картинку (Тут пусто)
+        if (myTickets.isEmpty()) {
+            imageView.setVisibility(View.VISIBLE);
+        } else {imageView.setVisibility(View.INVISIBLE);}
         return  view;
     }
 
@@ -94,7 +99,12 @@ public class MyTicketsFragment extends Fragment {
 
 
                 myTicketsAdapter.notifyDataSetChanged();
+                myTicketsAdapter = new MyTicketsAdapter(myTickets);
+                recyclerView.setAdapter(myTicketsAdapter);
 
+                if (myTickets.isEmpty()) {
+                    imageView.setVisibility(View.VISIBLE);
+                } else {imageView.setVisibility(View.INVISIBLE);}
 
             }
 
