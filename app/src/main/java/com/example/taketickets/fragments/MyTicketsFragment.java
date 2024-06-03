@@ -102,6 +102,7 @@ public class MyTicketsFragment extends Fragment {
                 myTicketsAdapter = new MyTicketsAdapter(myTickets);
                 recyclerView.setAdapter(myTicketsAdapter);
 
+                // Если список заказов пуст - отображаем картинку (Тут пусто)
                 if (myTickets.isEmpty()) {
                     imageView.setVisibility(View.VISIBLE);
                 } else {imageView.setVisibility(View.INVISIBLE);}
