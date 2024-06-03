@@ -68,7 +68,7 @@ public class PosterFragment extends Fragment {
 
 
     private void loadDataFromFirebase() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Movies");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -97,7 +97,7 @@ public class UploadActivity extends AppCompatActivity {
                 if (uri != null) {
                     saveData();
                 } else {
-                    Toast.makeText(UploadActivity.this, "Please select an image first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, "Загрузите постер фильма!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -168,7 +168,7 @@ public class UploadActivity extends AppCompatActivity {
 
          Movie movieClass = new Movie(title, genre, ageLimit, imageURL,plot,kinoposk,youtube);
 
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(title)
+        FirebaseDatabase.getInstance().getReference("Movies").child(title)
                 .setValue(movieClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -206,7 +206,7 @@ public class UploadActivity extends AppCompatActivity {
 
         Session session = new Session(time,price);
 
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(nameMovie).child("sessions").child(time)
+        FirebaseDatabase.getInstance().getReference("Movies").child(nameMovie).child("sessions").child(time)
                 .setValue(session).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

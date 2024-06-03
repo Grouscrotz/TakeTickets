@@ -95,7 +95,7 @@ public class SeatSelectionFragment extends Fragment {
 
     // Метод для проверки проданных мест из Firebase
     private void checkSoldSeatsFromFirebase() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials")
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Movies")
                 .child(movieTitle).child("sessions").child(sessionTime);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -137,15 +137,17 @@ public class SeatSelectionFragment extends Fragment {
 
     // Метод для сохранения выбранных мест в Firebase
     private void submitOrder() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials")
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Movies")
                 .child(movieTitle).child("sessions").child(sessionTime);
 
-        for (Seat seat : selectedSeats) {
-            databaseReference.child(seat.getSeatNumber()).child("available").setValue(false);
-        }
+
+            for (Seat seat : selectedSeats) {
+                databaseReference.child(seat.getSeatNumber()).child("available").setValue(false);
+            }
+
 
         orderToFirebase();
-        Toast.makeText(getContext(), "Order submitted successfully!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Заказ оформлен", Toast.LENGTH_SHORT).show();
         selectedSeats.clear(); // Очистка списка выбранных мест после отправки заказа
         loadSeats(); // Перезагрузка мест после отправки заказа
     }
@@ -153,8 +155,10 @@ public class SeatSelectionFragment extends Fragment {
     // Метод для добавления заказов текущему пользователю в БД
     public void orderToFirebase() {
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("Orders").child(movieTitle);
-
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("Orders").child("Movie");
+        if (selectedSeats.isEmpty()) {
+            Toast.makeText(getContext(), "Вы не выбрали места!", Toast.LENGTH_SHORT).show();
+        } else {
         for (Seat seat : selectedSeats) {
             String orderKey = movieTitle + orderCount;
 
@@ -169,6 +173,7 @@ public class SeatSelectionFragment extends Fragment {
             orderReference.setValue(orderInfo);
 
             orderCount += 1;
+                }
         }
 
 

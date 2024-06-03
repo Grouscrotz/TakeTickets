@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadDataFromFirebase(String path, FirebaseCallback callback) {
         Log.d("RRR", "Loading data from path: " + path);
         List<Movie> movieList = new ArrayList<>();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(path);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Movies").child(path);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     // Выгрузка сессий для фильмов
     public void loadSessionFromFirebase(String path, FirebaseCallbackSecond callback) {
         List<Session> sessionList = new ArrayList<>();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(path).child("sessions");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Movies").child(path).child("sessions");
         Log.d("RRR", String.valueOf(databaseReference) + "        Проверка");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
