@@ -43,6 +43,8 @@ public class SeatSelectionFragment extends Fragment {
     private String userId;
 
     List<Seat> selectedSeats;
+    // новое
+    List<Seat> buySeats;
 
     Button buyButton;
 
@@ -65,6 +67,9 @@ public class SeatSelectionFragment extends Fragment {
 
         seatList = new ArrayList<>();
         selectedSeats = new ArrayList<>();
+        // новое
+        buySeats = new ArrayList<>();
+
 
         seatAdapter = new SeatAdapter(seatList, selectedSeats, mainActivity, this);
 
@@ -141,13 +146,14 @@ public class SeatSelectionFragment extends Fragment {
                 .child(movieTitle).child("sessions").child(sessionTime);
 
 
-            for (Seat seat : selectedSeats) {
-                databaseReference.child(seat.getSeatNumber()).child("available").setValue(false);
-            }
+        for (Seat seat : selectedSeats) {
+            databaseReference.child(seat.getSeatNumber()).child("available").setValue(false);
+        }
 
 
         orderToFirebase();
         Toast.makeText(getContext(), "Заказ оформлен", Toast.LENGTH_SHORT).show();
+        buySeats = selectedSeats;
         selectedSeats.clear(); // Очистка списка выбранных мест после отправки заказа
         loadSeats(); // Перезагрузка мест после отправки заказа
     }
@@ -159,24 +165,24 @@ public class SeatSelectionFragment extends Fragment {
         if (selectedSeats.isEmpty()) {
             Toast.makeText(getContext(), "Вы не выбрали места!", Toast.LENGTH_SHORT).show();
         } else {
-        for (Seat seat : selectedSeats) {
-            String orderKey = movieTitle + orderCount;
+            for (Seat seat : selectedSeats) {
 
-            DatabaseReference orderReference = databaseReference.child(orderKey);
 
-            HashMap<String, String> orderInfo = new HashMap<>();
-            orderInfo.put("title", movieTitle);
-            orderInfo.put("sessionTime", sessionTime);
-            orderInfo.put("sessionPrice", sessionPrice);
-            orderInfo.put("numberSeat", seat.getSeatNumber());
+                DatabaseReference orderReference = databaseReference.push();
 
-            orderReference.setValue(orderInfo);
+                HashMap<String, String> orderInfo = new HashMap<>();
+                orderInfo.put("title", movieTitle);
+                orderInfo.put("sessionTime", sessionTime);
+                orderInfo.put("sessionPrice", sessionPrice);
+                orderInfo.put("numberSeat", seat.getSeatNumber());
 
-            orderCount += 1;
-                }
+                orderReference.setValue(orderInfo);
+
+
+            }
+
+
         }
-
-
     }
 }
 

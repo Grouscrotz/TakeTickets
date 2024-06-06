@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
+        showNewsFragment();
 
     }
 
@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Метод для проверки роли входяещго(текущего) пользователя
     public void checkRole() {
+
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID).child("role");
         databaseReference.addValueEventListener(new ValueEventListener() {

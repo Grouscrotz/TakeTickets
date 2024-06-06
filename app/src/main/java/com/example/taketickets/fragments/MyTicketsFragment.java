@@ -1,5 +1,6 @@
 package com.example.taketickets.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.taketickets.MainActivity;
 import com.example.taketickets.MySupportClasses.MyTicket;
 import com.example.taketickets.R;
 import com.example.taketickets.adapters.MyTicketsAdapter;
+import com.example.taketickets.regActivity.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +38,7 @@ public class MyTicketsFragment extends Fragment {
     public MyTicketsAdapter myTicketsAdapter;
     public List<MyTicket> myTickets;
     public ImageView imageView;
+    public Button buttonExitAccount;
     public MyTicketsFragment() {
         // Required empty public constructor
     }
@@ -72,6 +77,18 @@ public class MyTicketsFragment extends Fragment {
         if (myTickets.isEmpty()) {
             imageView.setVisibility(View.VISIBLE);
         } else {imageView.setVisibility(View.INVISIBLE);}
+
+
+        buttonExitAccount = view.findViewById(R.id.buttonExitAccount);
+
+        buttonExitAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
+        });
+
         return  view;
     }
 
@@ -115,6 +132,7 @@ public class MyTicketsFragment extends Fragment {
             }
         });
     }
+
 
 
 
