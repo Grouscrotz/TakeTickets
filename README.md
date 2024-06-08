@@ -27,3 +27,7 @@
 
 <img src="https://github.com/Grouscrotz/TakeTickets/assets/144844803/0694ee48-82b5-4ad2-856c-ab67f2f114c9" alt="Скриншот 9" width="400"/>
 <img src="https://github.com/Grouscrotz/TakeTickets/assets/144844803/231654a6-67df-4ba8-af7e-2acd46d17802" alt="Скриншот 10" width="400"/>
+
+## "Админ-панель"
+![10](https://github.com/Grouscrotz/TakeTickets/assets/144844803/32c1b25f-eec5-47ed-905f-a4ab6967b80a)
+
